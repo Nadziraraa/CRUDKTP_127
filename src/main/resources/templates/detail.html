@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+   
+<html>
+    <body>
+        <div th:replace="header :: header"></div>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <b>Data KTP</b>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-sm btn-danger" href="/ktp/"><i class="fa fa-arrow-left "></i> Kembali </a><br><br>
+                    <div class="card">
+                        <div class="card-header">
+                            Detail Data KTP
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img th:src="@{data:image/jpeg;base64,{ft}(ft=${foto})}" class="img-fluid img-thumbnail rounded"/>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <label for="noktp" class="col-sm-3 col-form-label">No KTP</label>
+                                        <div class="col-sm-8 col-form-label" th:text="${data.noktp}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.nama}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="tgllahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${#dates.format(data.tgllahir, 'dd MMMM yyyy')}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="jeniskelamin" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.jeniskelamin}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
+                                        <div class="col-sm-8 col-form-label" th:text="${data.alamat}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="agama" class="col-sm-3 col-form-label">Agama</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.agama}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="status" class="col-sm-3 col-form-label">Status</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.status}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="pekerjaan" class="col-sm-3 col-form-label">Pekerjaan</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.pekerjaan}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="warganegara" class="col-sm-3 col-form-label">Warganegara</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.warganegara}"></label>
+                                    </div>
+                                    <div class="row">
+                                        <label for="berlakuhingga" class="col-sm-3 col-form-label">Berlaku hingga</label>
+                                        <label class="col-sm-8 col-form-label" th:text="${data.berlakuhingga}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="footer :: footer"></div>
+    </body>
+</html>
