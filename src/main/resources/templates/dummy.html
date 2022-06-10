@@ -35,7 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
           <td th:text="${data.id}" th:id="${data.id}"></td>
           <td th:text="${#dates.format(data.tanggal, 'dd-MM-yyyy')}"></td>
           <td>
-            <img th:src="@{${'/img?id='+ data.id}}" alt="poto" width="200">
+            <img th:src="@{${'/img?id='+ data.id}}" alt="foto" width="200">
           </td>
           <td>
             <a class="btn btn-secondary" th:href="@{/edit/{id}(id=${data.id})}">Edit</a>

@@ -17,69 +17,50 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/data">Database</a>
+                <a class="navbar-brand" href="/data">Database KTP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
             </div>
         </nav>
         <br>
 <!--        <div th:insert="/menu :: main_menu"></div>-->
         <div align="center">Database KTP Indonesia</div>      
-        <a href="/bikin">Data baru</a>
-        <a href="/search">Cari Data</a>
+        <a href="/bikin"class="btn btn-warning">Data baru</a>
         <div class="table-responsive">
             <table class="table align-middle">
                 <tr>
                     <th>NIK</th>
                     <th>Nama</th>
                     <th>tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
                     <th>Alamat</th>
+                    <th>Agama</th>
+                    <th>Status</th>
+                    <th>Pekerjaan</th>
+                    <th>Warga Negara</th>
+                    <th>Berlaku Hingga</th>
+                    <th>Foto</th>
                     <th>Action</th>
                 </tr>
                 <tr th:each="godata:${goData}">
                     <td th:text="${godata.noktp}"></td>
                     <td th:text="${godata.nama}"></td>
                     <td th:text="${#dates.format(godata.tgllahir,'dd-MM-yyyy')}"></td>
+                    <td th:text="${godata.jeniskelamin}"></td>
                     <td th:text="${godata.alamat}"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td th:text="${godata.agama}"></td>
+                    <td th:text="${godata.status}"></td>
+                    <td th:text="${godata.pekerjaan}"></td>
+                    <td th:text="${godata.warganegara}"></td>
+                    <td th:text="${godata.berlakuhingga}"></td>                   
+                    <td><img th:src="@{${'/img?id='+ godata.id}}" alt="poto" width="100"></td>
                     <td>
-                        <a href="/detil">Detil</a>
-                        <a th:href="@{/edit/{id}(id=${godata.id})}">Edit</a>
-                        <a th:href="@{/delete/{id}(id=${godata.id})}">Delete</a>
+<!--                        <a href="/detil">Detil</a>-->
+                        <a th:href="@{/edit/{id}(id=${godata.id})}"class="btn btn-warning">Edit</a>
+                        <a th:href="@{/delete/{id}(id=${godata.id})}"class="btn btn-warning">Delete</a>
                     </td>
                 </tr> 
             </table>

@@ -4,6 +4,7 @@
  */
 package KTPProject.crudktp;
 
+import KTPProject.crudktp.exceptions.NonexistentEntityException;
 import dummy.Dummy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,9 +57,10 @@ public class DataController {
         return "database";
     }
     
-    @RequestMapping("/bikin")
+   @RequestMapping("/bikin")
     public String createDummy() {
         return "bikin";
+    
     }
 
     @PostMapping(value = "/newdata", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -68,31 +70,30 @@ public class DataController {
         Data d = new Data();
 
         long id = Integer.parseInt(r.getParameter("id"));
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(r.getParameter("tgllahir"));
-        byte[] img = f.getBytes();
-        
-        String agama = r.getParameter("agama");
-        String alamat = r.getParameter("alamat");
-        String berlaku = r.getParameter("berlakuhingga");
-        String jk = r.getParameter("jeniskelamin");
-        String nama = r.getParameter("nama");
         String noktp = r.getParameter("noktp");
-        String pekerjaan = r.getParameter("pekerjaan");
+        String nama = r.getParameter("nama");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(r.getParameter("tgllahir"));
+        String jeniskelamin = r.getParameter("jeniskelamin");
+        String alamat = r.getParameter("alamat");
+        String agama = r.getParameter("agama");
         String status = r.getParameter("status");
-        
-        String warganegara = r.getParameter("warganegara");
+        String pekerjaan = r.getParameter("pekerjaan");
+        String asal = r.getParameter("warganegara");
+        String berlaku = r.getParameter("berlakuhingga");
+        byte[] gmbr = f.getBytes();
+
         d.setId(id);
-        d.setAgama(agama);
-        d.setAlamat(alamat);
-        d.setBerlakuhingga(berlaku);
-        d.setFoto(img);
-        d.setJeniskelamin(jk);
-        d.setNama(nama);
         d.setNoktp(noktp);
-        d.setPekerjaan(pekerjaan);
-        d.setStatus(status);
+        d.setNama(nama);
         d.setTgllahir(date);
-        d.setWarganegara(warganegara);
+        d.setJeniskelamin(jeniskelamin);
+        d.setAlamat(alamat);
+        d.setAgama(agama);
+        d.setStatus(status);
+        d.setPekerjaan(pekerjaan);
+        d.setWarganegara(asal);
+        d.setBerlakuhingga(berlaku);
+        d.setFoto(gmbr);
 
         datactrl.create(d);
         return new RedirectView("/data");
@@ -109,77 +110,75 @@ public class DataController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public String deleteData(@PathVariable("id") long id) throws Exception {
+    public RedirectView deleteData(@PathVariable("id") long id) throws Exception {
         datactrl.destroy(id);
-        return "deleted";
+        return new RedirectView("/data");
     }
     
-    @RequestMapping("/ktp/detail/{id}")
-    public String detail(@PathVariable long id, Model model){
-        
-        Data data = new Data();
-        
-        try{
-            data = datactrl.findData(id);
-        }catch(Exception e){
-            
-        }
-        
-        String foto = "";
-        if(data != null){
-            foto = Base64.encodeBase64String(data.getFoto());
-            model.addAttribute("foto", foto);
-        }
-        
-        model.addAttribute("data", data);
-        
-        return "ktp/detail";
-    }
+//    @RequestMapping("/ktp/detail/{id}")
+//    public String detail(@PathVariable long id, Model model){
+//        
+//        Data data = new Data();
+//        
+//        try{
+//            data = datactrl.findData(id);
+//        }catch(Exception e){
+//            
+//        }
+//        
+//        String foto = "";
+//        if(data != null){
+//            foto = Base64.encodeBase64String(data.getFoto());
+//            model.addAttribute("foto", foto);
+//        }
+//        
+//        model.addAttribute("data", data);
+//        
+//        return "detail";
+//    }
     
     
 
     @RequestMapping("/edit/{id}")
-    public String updateData(@PathVariable("id") long id, Model m) throws Exception {
+    public String updateData(@PathVariable(value = "id") long id, Model m) throws NonexistentEntityException {
         Data d = datactrl.findData(id);
         m.addAttribute("data", d);
         return "edit";
     }
 
-    @PostMapping(value = "/perbarui", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ResponseBody
-    public RedirectView updateData(@RequestParam("gambar") MultipartFile f, HttpServletRequest r)
+    @PostMapping(value = "/edit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public RedirectView updateData(@RequestParam("foto") MultipartFile f, HttpServletRequest r)
             throws ParseException, Exception {
         Data d = new Data();
 
         long id = Integer.parseInt(r.getParameter("id"));
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(r.getParameter("tgllahir"));
-        byte[] img = f.getBytes();
-        
-        String agama = r.getParameter("agama");
-        String alamat = r.getParameter("alamat");
-        String berlaku = r.getParameter("berlakuhingga");
-        String jk = r.getParameter("jeniskelamin");
-        String nama = r.getParameter("nama");
         String noktp = r.getParameter("noktp");
-        String pekerjaan = r.getParameter("pekerjaan");
+        String nama = r.getParameter("nama");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(r.getParameter("tgllahir"));
+        String jeniskelamin = r.getParameter("jeniskelamin");
+        String alamat = r.getParameter("alamat");
+        String agama = r.getParameter("agama");
         String status = r.getParameter("status");
-        
-        String warganegara = r.getParameter("warganegara");
+        String pekerjaan = r.getParameter("pekerjaan");
+        String asal = r.getParameter("warganegara");
+        String berlaku = r.getParameter("berlakuhingga");
+        byte[] gmbr = f.getBytes();
+
         d.setId(id);
-        d.setAgama(agama);
-        d.setAlamat(alamat);
-        d.setBerlakuhingga(berlaku);
-        d.setFoto(img);
-        d.setJeniskelamin(jk);
-        d.setNama(nama);
         d.setNoktp(noktp);
-        d.setPekerjaan(pekerjaan);
-        d.setStatus(status);
+        d.setNama(nama);
         d.setTgllahir(date);
-        d.setWarganegara(warganegara);
+        d.setJeniskelamin(jeniskelamin);
+        d.setAlamat(alamat);
+        d.setAgama(agama);
+        d.setStatus(status);
+        d.setPekerjaan(pekerjaan);
+        d.setWarganegara(asal);
+        d.setBerlakuhingga(berlaku);
+        d.setFoto(gmbr);
         
 
-        datactrl.create(d);
+        datactrl.edit(d);
         return new RedirectView("/data");
     }
 }
